@@ -16,7 +16,7 @@ import './wrap.dart';
 import '../rendering/wrap.dart';
 import 'reorderable_mixin.dart';
 import 'package:provider/provider.dart';
-import 'package:jiji_modelcard_maker/common/jijimodel_photo_view_model.dart';
+import 'package:jiji_modelcard_maker/common/jijimodel_photo_view_album.dart';
 // import 'package:vector_math/vector_math.dart';
 /// Reorderable (drag and drop) version of [Wrap], A widget that displays its
 /// children in multiple horizontal or vertical runs.
@@ -786,15 +786,15 @@ class _ReorderableWrapContentState extends State<_ReorderableWrapContent>
     }
 
     Widget _makeAppearingWidget(Widget child) {
-      var photoViewModel = Provider.of<JiJiModelPhotoViewModel>(context, listen:false);
-      print(photoViewModel.photoViewScale);
+      var photoViewAlbum = Provider.of<JiJiModelPhotoViewAlbum>(context, listen:true);
+      print(photoViewAlbum.currentScale);
       return makeAppearingWidget(
         child,
         _entranceController,
         _draggingFeedbackSize,
-        10.0,
-        Offset(photoViewModel.deltaDx, photoViewModel.deltaDy),
-        30.0,
+        photoViewAlbum.currentScale,
+        Offset(0,0),
+        0,
         widget.direction,
       );
     }

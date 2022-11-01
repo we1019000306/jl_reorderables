@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'transitions.dart';
-import 'package:jiji_modelcard_maker/common/jijimodel_photo_view_model.dart';
+import 'package:jiji_modelcard_maker/common/jijimodel_photo_view_album.dart';
 import 'package:provider/provider.dart';
 import 'package:vector_math/vector_math_64.dart';
 // import 'package:vector_math/vector_math.dart';
@@ -12,9 +12,9 @@ mixin ReorderableMixin {
     Widget child,
     AnimationController entranceController,
     Size? draggingFeedbackSize,
-    double scaleFactor,
+    double? scaleFactor,
     Offset postion,
-    double rotation,
+    double? rotation,
     Axis direction,
   ) {
     if ((null == draggingFeedbackSize)) {
@@ -56,13 +56,13 @@ mixin ReorderableMixin {
       Vector3 vec3 = Vector3(contentSizeConstraints.widthConstraints().maxWidth*1.2, contentSizeConstraints.maxHeight*0.6, 0);
       return Container(
         child: Transform(
-          transform: new Matrix4.rotationZ(50),
+          transform: new Matrix4.rotationZ(rotation??0),
           //transform: new Matrix4.compose(vec3,Quaternion.axisAngle(vec3, 50.0),Vector3(contentSizeConstraints.widthConstraints().maxWidth*scaleFactor, contentSizeConstraints.maxHeight*scaleFactor, 0)),
           //transform: new Matrix4.translationValues(contentSizeConstraints.widthConstraints().maxWidth*scaleFactor, contentSizeConstraints.maxHeight*scaleFactor, 0),
          // transform: new Matrix4.rotationZ(150),
           child:Transform.scale(
             //transform: new Matrix4.translationValues(postion.dx, postion.dy,0),
-            scale: 0.1,
+            scale: scaleFactor??2,
             alignment: Alignment.center,
             child:Material(
               child: Card(child: ConstrainedBox(constraints: contentSizeConstraints, child: transition)),
